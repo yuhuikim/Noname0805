@@ -18,15 +18,15 @@ public class MemberDao {
 
 		try {
 			pstmt = conn.prepareStatement(
-					"SELECT * FROM member where memberid=?");
+					"SELECT * FROM member where id=?");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			Member member = null;
 
 			if (rs.next()) {
 				member = new Member(
-						rs.getInt("memberid"),
-						rs.getString("password"),
+						rs.getString("id"),
+						rs.getString("pw"),
 						rs.getString("name"),
 						rs.getString("dept"),
 						rs.getString("mail")
@@ -40,15 +40,15 @@ public class MemberDao {
 
 	public void update(Connection conn, Member member)
 			throws SQLException {
-		String sql = "UPDATE member SET name=?, password=?"
-				+ " WHERE memberid=?";
+		String sql = "UPDATE member SET name=?, pw=?"
+				+ " WHERE id=?";
 		
 		try (PreparedStatement pstmt = conn
 				.prepareStatement(sql)) {
 
 			pstmt.setString(1, member.getName());
 			pstmt.setString(2, member.getPw());
-			pstmt.setInt(3, member.getId());
+			pstmt.setString(3, member.getId());
 			pstmt.executeUpdate();
 		}
 	}

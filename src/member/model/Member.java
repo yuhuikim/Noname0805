@@ -1,13 +1,13 @@
 package member.model;
 
 public class Member {
-    private int id;
+    private String id;
     private String pw;
     private String name;
     private String dept;
     private String mail;
 
-    public Member(int id, String pw, String name, String dept, String mail) {
+    public Member(String id, String pw, String name, String dept, String mail) {
         this.id = id;
         this.pw = pw;
         this.name = name;
@@ -15,7 +15,7 @@ public class Member {
         this.mail = mail;
     }
 
-    public boolean matchPassword(int pwd) {
+    public boolean matchPassword(String pwd) {
         return pw.equals(pwd);
     }
 
@@ -23,7 +23,7 @@ public class Member {
         this.pw = newPwd;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
