@@ -21,8 +21,8 @@ import mvc.controller.CommandHandler;
 public class DeleteArticleHandler implements CommandHandler {
 
 	private static String FORM_VIEW = "/WEB-INF/view/deleteForm.jsp";
-	private DeleteArticleService deleteService = new DeleteArticleService();
-	private ReadArticleService readService = new ReadArticleService();
+	private DeleteNoticeService deleteService = new DeleteNoticeService();
+	private ReadNoticeService readService = new ReadNoticeService();
 
 	@Override
 	public String process(HttpServletRequest req,
@@ -53,7 +53,7 @@ public class DeleteArticleHandler implements CommandHandler {
 			String noVal = req.getParameter("no");
 			int no = Integer.parseInt(noVal);
 
-			ArticleData articleData = readService.getArticle(no,
+			NoticeData articleData = readNotice.getArticle(no,
 					false);
 			User authUser = (User) req.getSession()
 					.getAttribute("authUser");
@@ -68,7 +68,7 @@ public class DeleteArticleHandler implements CommandHandler {
 
 			req.setAttribute("delReq", delReq);
 			return FORM_VIEW;
-		} catch (ArticleNotFoundException e) {
+		} catch (NoticeNotFoundException e) {
 			e.printStackTrace();
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
@@ -99,7 +99,7 @@ public class DeleteArticleHandler implements CommandHandler {
 		try {
 			deleteService.delete(delReq);
 			return "/WEB-INF/view/deleteSuccess.jsp";
-		} catch (ArticleNotFoundException e) {
+		} catch (NoticeNotFoundException e) {
 			e.printStackTrace();
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} catch (PermissionDeniedException e) {
@@ -115,7 +115,7 @@ public class DeleteArticleHandler implements CommandHandler {
 	}
 
 	private boolean canModify(User authUser,
-			ArticleData articleData) {
+	        NoticeData articleData) {
 
 		String writerId = articleData.getArticle().getWriter()
 				.getId();

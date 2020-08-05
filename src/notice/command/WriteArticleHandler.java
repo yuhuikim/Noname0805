@@ -14,7 +14,7 @@ import mvc.controller.CommandHandler;
 
 public class WriteArticleHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/newArticleForm.jsp";
-	private WriteArticleService writeService = new WriteArticleService();
+	private WriteNoticeService writeService = new WriteNoticeService();
 
 	@Override
 	public String process(HttpServletRequest req,

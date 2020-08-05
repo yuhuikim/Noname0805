@@ -7,8 +7,8 @@ import article.service.ArticlePage;
 import article.service.ListArticleService;
 import mvc.controller.CommandHandler;
 
-public class ListArticleHandler implements CommandHandler {
-	private ListArticleService listService = new ListArticleService();
+public class ListNoticeHandler implements CommandHandler {
+	private ListNoticeService listService = new ListNoticeService();
 
 	@Override
 	public String process(HttpServletRequest req,
@@ -21,7 +21,7 @@ public class ListArticleHandler implements CommandHandler {
 			pageNo = Integer.parseInt(pageNoVal);
 		}
 		
-		ArticlePage articlePage = listService.getArticlePage(pageNo);
+		NoticePage articlePage = listService.getArticlePage(pageNo);
 		req.setAttribute("articlePage", articlePage);
 		
 		return "/WEB-INF/view/listArticle.jsp";

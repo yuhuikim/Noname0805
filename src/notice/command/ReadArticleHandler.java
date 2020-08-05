@@ -9,8 +9,8 @@ import article.service.ArticleNotFoundException;
 import article.service.ReadArticleService;
 import mvc.controller.CommandHandler;
 
-public class ReadArticleHandler implements CommandHandler {
-	private ReadArticleService readService = new ReadArticleService();
+public class ReadNoticeHandler implements CommandHandler {
+	private ReadNoticeService readService = new ReadNoticeService();
 	
 	@Override
 	public String process(HttpServletRequest req,
@@ -21,11 +21,11 @@ public class ReadArticleHandler implements CommandHandler {
 		
 		try {
 			
-			ArticleData articleData = readService.getArticle(articleNum, true);
+		    NoticeData articleData = readService.getArticle(articleNum, true);
 			req.setAttribute("articleData", articleData);
 			return "/WEB-INF/view/readArticle.jsp";
 			
-		} catch (ArticleNotFoundException | ArticleContentNotFoundException e) {
+		} catch (NoticeNotFoundException | NoticeContentNotFoundException e) {
 			req.getServletContext().log("no article", e);
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			e.printStackTrace();

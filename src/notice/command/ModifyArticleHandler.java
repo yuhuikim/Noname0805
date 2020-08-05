@@ -19,8 +19,8 @@ import mvc.controller.CommandHandler;
 public class ModifyArticleHandler implements CommandHandler {
 	private static final String FORM_VIEW = "/WEB-INF/view/modifyForm.jsp";
 
-	private ReadArticleService readService = new ReadArticleService();
-	private ModifyArticleService modifyService = new ModifyArticleService();
+	private ReadNoticeService readService = new ReadNoticeService();
+	private ModifyNoticeService modifyService = new ModifyNoticeService();
 
 	@Override
 	public String process(HttpServletRequest req,
@@ -61,7 +61,7 @@ public class ModifyArticleHandler implements CommandHandler {
 		try {
 			modifyService.modify(modReq);
 			return "/WEB-INF/view/modifySuccess.jsp";
-		} catch (ArticleNotFoundException e) {
+		} catch (NoticeNotFoundException e) {
 			e.printStackTrace();
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 		} catch (PermissionDeniedException e) {
@@ -80,7 +80,7 @@ public class ModifyArticleHandler implements CommandHandler {
 			String noVal = req.getParameter("no");
 			int no = Integer.parseInt(noVal);
 
-			ArticleData articleData = readService.getArticle(no,
+			NoticeData articleData = readService.getArticle(no,
 					false);
 			User authUser = (User) req.getSession()
 					.getAttribute("authUser");
@@ -97,7 +97,7 @@ public class ModifyArticleHandler implements CommandHandler {
 
 			req.setAttribute("modReq", modReq);
 			return FORM_VIEW;
-		} catch (ArticleNotFoundException e) {
+		} catch (NoticeNotFoundException e) {
 			e.printStackTrace();
 			res.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
@@ -106,7 +106,7 @@ public class ModifyArticleHandler implements CommandHandler {
 	}
 
 	private boolean canModify(User authUser,
-			ArticleData articleData) {
+	        NoticeData articleData) {
 
 		String writerId = articleData.getArticle().getWriter()
 				.getId();
